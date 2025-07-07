@@ -3,7 +3,6 @@ import Sidebar from '../components/Profile/Sidebar';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-// ✅ You can use a real loader component if you have one
 import Loader from '../components/common/Loader';
 
 const Profile = () => {
@@ -15,19 +14,38 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost:5174/api/v1/get-user-information',
-          { headers }
-        );
-        setProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
 
-    fetchProfile(); // ✅ Call the async function
+    // ye dummy data hai , kaam ho jane k baad delete kr dena :
+    const fetchProfile = async () => {
+    try {
+      const mockData = {
+        avatar: "https://i.pravatar.cc/150?img=12",
+        username: "John Doe",
+        email: "john.doe@example.com",
+      };
+      
+      setTimeout(() => {
+        setProfile(mockData);
+      }, 500);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
+
+    // neeche wala sara main real time data fetch krne k liye h , dont mess with it !!!
+    // const fetchProfile = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       'http://localhost:5174/api/v1/get-user-information',
+    //       { headers }
+    //     );
+    //     setProfile(response.data);
+    //   } catch (error) {
+    //     console.error('Error fetching profile:', error);
+    //   }
+    // };
+
+    fetchProfile(); 
   }, []);
 
   return (
@@ -38,10 +56,10 @@ const Profile = () => {
         </div> 
       ) : (
         <>
-          <div className="sm: w-full md:w-1/6">
-            <Sidebar data={Profile} />
+          <div className="sm:w-full md:w-1/6">
+            <Sidebar data={profile} />
           </div>
-          <div className="sm: w-full md:w-5/6">
+          <div className="sm:w-full md:w-5/6">
             <Outlet context={{ profile }} /> {/* ✅ pass profile data to nested routes if needed */}
           </div>
         </>
