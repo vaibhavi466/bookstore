@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'; // ✅ Required for dispatch
 import { FaArrowRightFromBracket, FaBars } from 'react-icons/fa6';
+import { authActions } from '../../store/auth'; // ✅ Adjust the path if needed
 
 const Sidebar = ({ data }) => {
-  const navigate = useNavigate();
+  const history = useNavigate();
+  const role = useSelector((state) => state.auth.role);
+  const dispatch = useDispatch(); // ✅ Required to dispatch logout actions
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate('/');
-  };
-
   return (
-
     <div
-  className={`bg-zinc-800 text-white flex flex-col justify-between shadow-lg transition-all duration-300 
-    ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
->
-
+      className={`bg-zinc-800 text-white flex flex-col justify-between shadow-lg transition-all duration-300 
+      ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
+    >
       {/* Collapse Toggle */}
       <div className="flex justify-end p-4">
         <button
@@ -30,10 +27,10 @@ const Sidebar = ({ data }) => {
       </div>
 
       {/* Top Section */}
-      <div className="flex flex-col items-center px-4 mt-[-50px] ">
+      <div className="flex flex-col items-center px-4 mt-[-50px]">
         {/* Avatar */}
         {!isCollapsed && (
-          <div className='bg-zinc-800 flex flex-col items-center mb-10 '>
+          <div className="bg-zinc-800 flex flex-col items-center mb-10">
             <img
               src={data.avatar}
               alt="Avatar"
@@ -50,7 +47,7 @@ const Sidebar = ({ data }) => {
         )}
 
         {/* Navigation Links */}
-        
+        {role === "user" && 
         <div className="w-full flex flex-col gap-2 mt-2">
           {[
             { to: '/profile', label: 'Favourites' },
@@ -58,24 +55,53 @@ const Sidebar = ({ data }) => {
             { to: '/profile/settings', label: 'Settings' },
           ].map((link) => (
             <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                `block w-full text-center py-2 rounded font-semibold transition-all ${
-                  isActive
-                    ? 'bg-zinc-00 text-white hover:bg-zinc-900 hover:text-white'
-                    : 'bg-zinc-900 text-zinc-300 '
-                } ${isCollapsed ? 'text-xs px-2' : ''}`
-              }
-            >
-              {isCollapsed ? link.label[0] : link.label}
+                key={link.to}
+                to={link.to}
+                end // ✅ THIS ensures only exact path is matched
+                className={({ isActive }) =>
+                  `block w-full text-center py-2 rounded font-semibold transition-all
+                  ${isActive 
+                      ? 'bg-zinc-900 text-white' 
+                      : 'bg-zinc-700 text-zinc-300 hover:bg-zinc-900 hover:text-white'}
+                  ${isCollapsed ? 'text-xs px-2' : ''}`
+                }
+              >
+                {isCollapsed ? link.label[0] : link.label}
             </NavLink>
           ))}
-        </div>
+        </div>}
       </div>
 
+      {role === "admin" && 
+      <div className="w-full flex flex-col gap-2 mt-2">
+          {[
+            { to: '/profile', label: 'All Orders' },
+            { to: '/profile/add-book', label: 'Add Book' },
+            
+          ].map((link) => (
+            <NavLink
+                key={link.to}
+                to={link.to}
+                end // ✅ THIS ensures only exact path is matched
+                className={({ isActive }) =>
+                  `block w-full text-center py-2 rounded font-semibold transition-all
+                  ${isActive 
+                      ? 'bg-zinc-900 text-white' 
+                      : 'bg-zinc-700 text-zinc-300 hover:bg-zinc-900 hover:text-white'}
+                  ${isCollapsed ? 'text-xs px-2' : ''}`
+                }
+              >
+                {isCollapsed ? link.label[0] : link.label}
+            </NavLink>
+          ))}
+        </div>}
+
+
+
+
+
+
       {/* Logout Button */}
-      
       <div className="px-4 py-6">
         <button
           onClick={() => setShowLogoutConfirm(true)}
@@ -101,10 +127,17 @@ const Sidebar = ({ data }) => {
                 Cancel
               </button>
               <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition"
+                onClick={() => {
+                  dispatch(authActions.logout()); // ✅ Logs out
+                  dispatch(authActions.changeRole("user")); // ✅ Optional role reset
+                  localStorage.removeItem("id"); // ✅ Correct way to clear keys
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("role");
+                  history("/"); // ✅ Corrected from history()
+                }}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded transition flex items-center gap-2"
               >
-                Logout
+                Logout <FaArrowRightFromBracket />
               </button>
             </div>
           </div>
