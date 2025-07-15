@@ -13,6 +13,7 @@ import Settings from "./components/Profile/Settings";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
 
 function App() {
+   console.log("✅ App component rendered");
   return (
     <div className="bg-zinc-800 min-h-screen text-white">
       <Navbar />
@@ -24,6 +25,8 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
+        <Route path="*" element={<div className="text-red-500 p-4">❌ Route Not Matched</div>} />
+
 
         {/* ✅ Profile with nested routes */}
         <Route path="/profile" element={<Profile />}>
