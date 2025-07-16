@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaArrowRightFromBracket, FaBars } from 'react-icons/fa6';
+import { FaSignOutAlt, FaBars, FaHeart, FaShoppingBag, FaCog } from 'react-icons/fa';
+
 
 const Sidebar = ({ data }) => {
   const navigate = useNavigate();
@@ -12,13 +13,17 @@ const Sidebar = ({ data }) => {
     navigate('/');
   };
 
+  const links = [
+    { to: '/profile', label: 'Favourites', icon: <FaHeart /> },
+    { to: '/profile/orderHistory', label: 'Order History', icon: <FaShoppingBag /> },
+    { to: '/profile/settings', label: 'Settings', icon: <FaCog /> },
+  ];
+
   return (
-
     <div
-  className={`bg-zinc-800 text-white flex flex-col justify-between shadow-lg transition-all duration-300 
-    ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
->
-
+      className={`bg-zinc-800 text-white flex flex-col justify-between shadow-lg transition-all duration-300 
+        ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
+    >
       {/* Collapse Toggle */}
       <div className="flex justify-end p-4">
         <button
@@ -33,7 +38,7 @@ const Sidebar = ({ data }) => {
       <div className="flex flex-col items-center px-4 mt-[-50px] ">
         {/* Avatar */}
         {!isCollapsed && (
-          <div className='bg-zinc-800 flex flex-col items-center mb-10 '>
+          <div className='bg-zinc-800 flex flex-col items-center mb-10'>
             <img
               src={data.avatar}
               alt="Avatar"
@@ -49,39 +54,34 @@ const Sidebar = ({ data }) => {
           </div>
         )}
 
-        {/* Navigation Links */}
-        
+        {/* Navigation Links with Icons */}
         <div className="w-full flex flex-col gap-2 mt-2">
-          {[
-            { to: '/profile', label: 'Favourites' },
-            { to: '/profile/orderHistory', label: 'Order History' },
-            { to: '/profile/settings', label: 'Settings' },
-          ].map((link) => (
+          {links.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `block w-full text-center py-2 rounded font-semibold transition-all ${
+                `flex items-center gap-3 px-4 py-2 rounded font-semibold transition-all ${
                   isActive
-                    ? 'bg-zinc-00 text-white hover:bg-zinc-900 hover:text-white'
-                    : 'bg-zinc-900 text-zinc-300 '
-                } ${isCollapsed ? 'text-xs px-2' : ''}`
+                    ? 'bg-zinc-700 text-white hover:bg-zinc-900'
+                    : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-700'
+                } ${isCollapsed ? 'justify-center px-2' : ''}`
               }
             >
-              {isCollapsed ? link.label[0] : link.label}
+              <span className="text-lg">{link.icon}</span>
+              {!isCollapsed && <span>{link.label}</span>}
             </NavLink>
           ))}
         </div>
       </div>
 
       {/* Logout Button */}
-      
       <div className="px-4 py-6">
         <button
           onClick={() => setShowLogoutConfirm(true)}
           className="w-full py-2 px-4 flex items-center justify-center gap-2 bg-zinc-700 text-zinc-100 hover:bg-zinc-900 rounded-lg font-semibold transition-all"
         >
-          {!isCollapsed && 'Logout'} <FaArrowRightFromBracket />
+          {!isCollapsed && 'Logout'} <FaSignOutAlt />
         </button>
       </div>
 
