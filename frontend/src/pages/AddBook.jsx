@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ const AddBook = () => {
   const [error, setError] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +26,7 @@ const AddBook = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
 
   if (
@@ -41,22 +44,26 @@ const AddBook = () => {
   setError("");
   setIsLoading(true); // start loading
 
-  // Simulate a delay like an API call
-  setTimeout(() => {
-    console.log("✅ Book added:", formData);
-    setShowDialog(true);
-    setIsLoading(false); // stop loading
+  try {
+      //  New: send POST request to backend API
+      await axios.post("/api/books", formData); // change URL if your backend route differs
 
-    setFormData({
-      title: "",
-      author: "",
-      desc: "",
-      language: "English",
-      price: "",
-      url: "",
-    });
-  }, 1500); // 1.5s delay
-};
+      setShowDialog(true); //  Show celebration
+      setFormData({
+        title: "",
+        author: "",
+        desc: "",
+        language: "English",
+        price: "",
+        url: "",
+      });
+    } catch (error) {
+      console.error("Failed to add book:", error);
+      setError(" Failed to add book. Please try again.");
+    } finally {
+      setIsLoading(false); // stop loading
+    }
+  };
 
 
   return (
@@ -160,7 +167,10 @@ const AddBook = () => {
                     Your book has been successfully added to the collection.
                 </p>
                 <button
-                    onClick={() => setShowDialog(false)}
+                    onClick={() => { 
+                      setShowDialog(false) ;
+                      navigate("/all-books"); 
+                    }}
                     className="px-6 py-2 bg-white text-blue-700 font-semibold rounded-lg shadow hover:bg-blue-100 transition delay-100"
                 >
                     OK
