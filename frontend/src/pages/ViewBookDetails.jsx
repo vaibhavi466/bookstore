@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import axios from "axios";
 import { FaHeart, FaShoppingCart, FaEdit } from "react-icons/fa"; // ✅ FIXED: Added missing FaShoppingCart and FaEdit imports
 import { MdOutlineDelete } from "react-icons/md";
@@ -154,7 +154,7 @@ const ViewBookDetails = () => {
 
   if (!data) return <Loader />;
 
-  // ✅ UI remains exactly as you specified with no changes
+  
   return (
     <>
       {data && (
@@ -192,10 +192,10 @@ const ViewBookDetails = () => {
               {isLoggedIn === true && role === "admin" && (
                 <div className="flex flex-col gap-4 mt-4 lg:mt-0">
                   {/* Edit Button */}
-                  <button className="bg-white px-6 py-3 lg:w-14 lg:h-14 lg:rounded-full lg:p-0 hover:bg-gray-200 text-black text-lg flex items-center justify-center gap-2">
+                  <Link to={`/updateBook/${id}`} className="bg-white px-6 py-3 lg:w-14 lg:h-14 lg:rounded-full lg:p-0 hover:bg-gray-200 text-black text-lg flex items-center justify-center gap-2">
                     <FaEdit className="text-xl" />
                     <span className="block lg:hidden">Edit</span>
-                  </button>
+                  </Link>
                   {/* Delete Button */}
                   <button 
                     className="bg-white px-6 py-3 lg:w-14 lg:h-14 lg:rounded-full lg:p-0 hover:bg-gray-200 text-red-600 text-lg flex items-center justify-center gap-2"
