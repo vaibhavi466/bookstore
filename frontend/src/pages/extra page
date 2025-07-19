@@ -5,12 +5,12 @@ import { FaHeart, FaShoppingCart, FaEdit } from "react-icons/fa"; // ✅ FIXED: 
 import { MdOutlineDelete } from "react-icons/md";
 import { GrLanguage } from "react-icons/gr"; // ✅ FIXED: Added missing GrLanguage import
 import Loader from "../components/common/Loader";
-import { useNavigate } from "react-router-dom";
+
 const ViewBookDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
-  const useMockData = true; // false -> when backend is ready
-  const navigate = useNavigate();
+  const useMockData = true; 
+
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true"
   );
@@ -131,7 +131,6 @@ const ViewBookDetails = () => {
       if (useMockData) {
         await new Promise(resolve => setTimeout(resolve, 500));
         alert("[MOCK] Book deleted");
-        navigate("/all-books");
         return;
       }
       /* BACKEND IMPLEMENTATION (COMMENTED OUT FOR NOW)
@@ -144,7 +143,6 @@ const ViewBookDetails = () => {
         { headers }
       );
       alert("Book deleted");
-      navigate("/books");
       */
     } catch (error) {
       console.log(error);
@@ -232,3 +230,68 @@ const ViewBookDetails = () => {
 };
 
 export default ViewBookDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
