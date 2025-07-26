@@ -21,7 +21,7 @@ const Sidebar = ({ data }) => {
 
   return (
     <div
-      className={`bg-zinc-800 text-white flex flex-col justify-between shadow-lg transition-all duration-300 
+      className={`bg-zinc-800 p-4 rounded flex flex-col items center justify-between h-auto lg:h-[100]">
         ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
     >
       {/* Collapse Toggle */}
