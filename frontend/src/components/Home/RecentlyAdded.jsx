@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookCard from '../BookCard/BookCard'; 
@@ -41,3 +42,16 @@ const RecentlyAdded = () => {
 export default RecentlyAdded;
 
 
+=======
+import React from 'react'
+
+const RecentlyAdded = () => {
+  return (
+    <div className='mt-8 px-4'>
+       <h4 className='text-3xl text-yellow-100'>Recently added Books</h4>
+    </div>
+  )
+}
+
+export default RecentlyAdded
+>>>>>>> navbar-feature
