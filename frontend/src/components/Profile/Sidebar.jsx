@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaSignOutAlt, FaBars, FaHeart, FaShoppingBag, FaCog } from 'react-icons/fa';
 
-
 const Sidebar = ({ data }) => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -21,11 +20,11 @@ const Sidebar = ({ data }) => {
 
   return (
     <div
-      className={`bg-zinc-800 p-4 rounded flex flex-col items center justify-between h-auto lg:h-[100]">
-        ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-[88vh] overflow-hidden`}
+      className={`bg-zinc-800 p-4 rounded flex flex-col justify-between transition-all duration-300
+        ${isCollapsed ? 'w-[72px]' : 'w-full md:w-[240px]'} min-h-screen overflow-hidden`}
     >
       {/* Collapse Toggle */}
-      <div className="flex justify-end p-4">
+      <div className="flex justify-end">
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="text-zinc-400 hover:text-white transition"
@@ -35,16 +34,15 @@ const Sidebar = ({ data }) => {
       </div>
 
       {/* Top Section */}
-      <div className="flex flex-col items-center px-4 mt-[-50px] ">
-        {/* Avatar */}
+      <div className="flex flex-col items-center mt-4">
         {!isCollapsed && (
-          <div className='bg-zinc-800 flex flex-col items-center mb-10'>
+          <div className="flex flex-col items-center mb-6">
             <img
               src={data.avatar}
               alt="Avatar"
               className="h-[12vh] w-[12vh] rounded-full object-cover border-4 border-zinc-600"
             />
-            <p className="mt-4 text-xl font-semibold text-center">
+            <p className="mt-4 text-xl font-semibold text-center text-white">
               {data.username}
             </p>
             <p className="text-sm text-zinc-400 text-center truncate max-w-[180px] mt-1">
@@ -54,7 +52,7 @@ const Sidebar = ({ data }) => {
           </div>
         )}
 
-        {/* Navigation Links with Icons */}
+        {/* Navigation Links */}
         <div className="w-full flex flex-col gap-2 mt-2">
           {links.map((link) => (
             <NavLink
