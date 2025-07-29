@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Profile/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 import Loader from '../components/common/Loader';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null); // ✅ lowercase to avoid conflict
 
-  const headers = {
-    id: localStorage.getItem('id'),
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
+  // const headers = {
+  //   id: localStorage.getItem('id'),
+  //   authorization: `Bearer ${localStorage.getItem('token')}`,
+  // };
 
   useEffect(() => {
 
