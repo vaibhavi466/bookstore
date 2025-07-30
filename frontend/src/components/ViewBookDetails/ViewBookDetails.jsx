@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
@@ -112,3 +113,17 @@ const ViewBookDetails = () => {
 };
 
 export default ViewBookDetails;
+=======
+import React from 'react'
+
+const ViewBookDetails = () => {
+  return (
+    <div className="px-12 py-8 bg-zinc-900 flex">
+        <div className="bg-zinc-800"></div>
+
+    </div>
+  )
+}
+
+export default ViewBookDetails;
+>>>>>>> e2a3af2f07961084d45a4f1f1790282e82af9d20

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Profile/Sidebar';
 import { Outlet } from 'react-router-dom';
@@ -69,3 +70,16 @@ const Profile = () => {
 };
 
 export default Profile;
+=======
+import React from 'react'
+
+const Profile = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Profile
+>>>>>>> e2a3af2f07961084d45a4f1f1790282e82af9d20

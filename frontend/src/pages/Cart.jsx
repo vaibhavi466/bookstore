@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React ,{useState} from "react";
 import Loader from "../components/Loader/Loader";
 import axios from "axios";
@@ -147,3 +148,16 @@ const Cart=()=>{
 export default Cart;
 
 
+=======
+import React from 'react'
+
+const Cart = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Cart
+>>>>>>> e2a3af2f07961084d45a4f1f1790282e82af9d20
