@@ -1,168 +1,8 @@
-// import React, { useEffect, useState } from "react";
-// import { Link, useParams } from "react-router-dom";
-// import axios from "axios";
-// import { FaHeart, FaShoppingCart, FaEdit } from "react-icons/fa"; // ✅ FIXED: Added missing FaShoppingCart and FaEdit imports
-// import { MdOutlineDelete } from "react-icons/md";
-// import { GrLanguage } from "react-icons/gr"; // ✅ FIXED: Added missing GrLanguage import
-// import Loader from "../components/common/Loader";
-// import { useNavigate } from "react-router-dom";
-// const ViewBookDetails = () => {
-//   const { id } = useParams();
-//   const [data, setData] = useState(null);
-//   const useMockData = true; // false -> when backend is ready
-//   const navigate = useNavigate();
-//   const [isLoggedIn, setIsLoggedIn] = useState(
-//     localStorage.getItem("isLoggedIn") === "true"
-//   );
-//   const [role, setRole] = useState(localStorage.getItem("role")?.trim() || "user");
-
-
-//   useEffect(() => {
-//     // ✅ Dynamically fetch role and login state
-//     setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-//     setRole(localStorage.getItem("role")?.trim() || "user");
-//   }, []);
-
-//   useEffect(() => {
-//   const loggedIn = localStorage.getItem("isLoggedIn");
-//   const userRole = localStorage.getItem("role");
-
-//   console.log("isLoggedIn from storage:", loggedIn); // Should log "true"
-//   console.log("role from storage:", userRole);       // Should log "admin" or "user"
-
-//   setIsLoggedIn(loggedIn === "true");
-//   setRole(userRole?.trim() || "user");
-//   }, []);
-
-
-  
-//   const getMockBook = (id) => ({
-//     _id: id,
-//     title: "Atomic Habits",
-//     author: "James Clear",
-//     desc: "An easy & proven way to build good habits & break bad ones.",
-//     price: 499,
-//     url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f", // ✅ FIXED: Changed 'image' to 'url' to match your UI usage
-//     language: "English", // ✅ FIXED: Added missing language field
-//     quantity: 10,
-//     createdAt: new Date().toISOString()
-//   });
-  
-//   useEffect(() => {
-//     const fetchBook = async () => {
-//       try {
-//         if (useMockData) {
-//           await new Promise(resolve => setTimeout(resolve, 800));
-//           setData(getMockBook(id));
-//           return;
-//         }
-//         /* BACKEND IMPLEMENTATION (COMMENTED OUT FOR NOW)*/
-//         const headers = {
-//           id: localStorage.getItem("id"),
-//           authorization: `Bearer ${localStorage.getItem("token")}`,
-//           bookid: id,
-//         };
-//         const response = await axios.get(
-//           `http://localhost:8080/api/v1/books/${id}`,
-//           { headers }
-//         );
-//         setData(response.data.book);
-      
-//       } catch (error) {
-//         console.error("Failed to fetch book", error);
-//         alert("Failed to fetch book details");
-//       }
-//     };
-//     fetchBook();
-//   }, [id]);
-
-//   const handleFavourite = async () => {
-//     try {
-//       if (useMockData) {
-//         await new Promise(resolve => setTimeout(resolve, 500));
-//         alert("[MOCK] Added to favourites");
-//         return;
-//       }
-//       /* BACKEND IMPLEMENTATION (COMMENTED OUT FOR NOW)*/
-//       const headers = {
-//         authorization: `Bearer ${localStorage.getItem("token")}`,
-//         id: localStorage.getItem("id")
-//       };
-//       await axios.post(
-//         `http://localhost:8080/api/v1/favourites/${id}`,
-//         {},
-//         { headers }
-//       );
-//       alert("Added to favourites");
-      
-//     } catch (error) {
-//       console.log(error);
-//       alert("Failed to add to favourites");
-//     }
-//   };
-
-//   const handleCart = async () => {
-//     try {
-//       if (useMockData) {
-//         await new Promise(resolve => setTimeout(resolve, 500));
-//         alert("[MOCK] Added to cart");
-//         return;
-//       }
-//       /* BACKEND IMPLEMENTATION (COMMENTED OUT FOR NOW)*/
-//       const headers = {
-//         authorization: `Bearer ${localStorage.getItem("token")}`,
-//         id: localStorage.getItem("id")
-//       };
-//       await axios.post(
-//         `http://localhost:8080/api/v1/cart/${id}`,
-//         {},
-//         { headers }
-//       );
-//       alert("Added to cart");
-      
-//     } catch (error) {
-//       console.log(error);
-//       alert("Failed to add to cart");
-//     }
-//   };
-
-//   const handleDelete = async () => { // ✅ FIXED: Renamed from deleteBook to handleDelete to match usage
-//     try {
-//       if (useMockData) {
-//         await new Promise(resolve => setTimeout(resolve, 500));
-//         alert("[MOCK] Book deleted");
-//         navigate("/all-books");
-//         return;
-//       }
-//       /* BACKEND IMPLEMENTATION (COMMENTED OUT FOR NOW)*/
-//       const headers = {
-//         authorization: `Bearer ${localStorage.getItem("token")}`,
-//         id: localStorage.getItem("id")
-//       };
-//       await axios.delete(
-//         `http://localhost:8080/api/v1/books/${id}`,
-//         { headers }
-//       );
-//       alert("Book deleted");
-//       navigate("/books");
-      
-//     } catch (error) {
-//       console.log(error);
-//       alert("Failed to delete book");
-//     }
-//   };
-
-//   if (!data) return <Loader />;
-
-
-
-
-
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/common/Loader";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -171,6 +11,7 @@ import {MdOutlineDelete} from "react-icons/md";
 
 const ViewDataDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [Data, setData] = useState();
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const role = useSelector((state) => state.auth.role);
@@ -211,6 +52,20 @@ const ViewDataDetails = () => {
         alert(response.data.message);
       };
 
+      const deleteBook = async () => {
+        const response = await axios.delete(
+            "http://localhost:1000/api/v1/delete-book",
+            { 
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                data: { bookId: id }  // Assuming you need to send the book ID in the request body
+            }
+        );
+        alert(response.data.message);
+        navigate("/all-books");
+      };
+
 
 
   return (
@@ -246,7 +101,8 @@ const ViewDataDetails = () => {
                     <FaEdit />{" "}
                     <span className="ms-4 block lg:hidden">Edit</span>
                   </button>
-                  <button className="bg-red-500 rounded lg:rounded-full text-3xl p-3 mt-0 lg:mt-8 text-white flex items-center">
+                  <button className="bg-red-500 rounded lg:rounded-full text-3xl p-3 mt-0 lg:mt-8 text-white flex items-center"
+                  onClick={deleteBook}>
                     <MdOutlineDelete />
                     <span className="ms-4 block lg:hidden">Delete</span>
                   </button>
