@@ -1,25 +1,28 @@
-<<<<<<< HEAD
-import React ,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import Loader from "../components/Loader/Loader";
 import axios from "axios";
 import{AiFillDelete} from "react-icons/ai";
+import { useNavigate } from "react-router-dom"
+const navigate = useNavigate();
 const Cart=()=>{
   const [Cart,setCart]=useState(); //by defalut cart is empty
   const [Total,setTotal]=useState(0);
   const headers={
     id:localStorage.getItem("id"),
-    authorization:'Bearer ${localStorage.getItem("token")}',
+    authorization: `Bearer ${localStorage.getItem("token")}`,
   };
   useEffect(()=>{
     const fetch =async()=>{
       const res=await axios.get(
-        "http:localhost:1000/api/v1/get-user-cart",
+        "http://localhost:1000/api/v1/get-user-cart",
         {headers}
       );
       setCart(res.data.data);
     };
     fetch();
-  },[Cart]);
+  },[]);  //dabba[] se Cart hata diya 
+
+
 
   const deleteItem =async(bookid)=>{
     const response =await axios.put(
@@ -148,16 +151,3 @@ const Cart=()=>{
 export default Cart;
 
 
-=======
-import React from 'react'
-
-const Cart = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default Cart
->>>>>>> e2a3af2f07961084d45a4f1f1790282e82af9d20
