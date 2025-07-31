@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
+
 import Home from "./pages/Home";
 import AllBooks from "./pages/AllBooks";
 import Cart from "./pages/Cart";
@@ -8,9 +9,11 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import ViewBookDetails from "./pages/ViewBookDetails";
 import Profile from "./pages/Profile";
-import Favourites from "./components/Profile/Favourites"; // ✅ nestedimport OrderHistory from "./components/Profile/UserOrderHistory";
-import Settings from "./components/Profile/Settings";
+import AboutUs from "./pages/AboutUs";
+
+import Favourites from "./components/Profile/Favourites";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
+import Settings from "./components/Profile/Settings";
 
 function App() {
   return (
@@ -24,8 +27,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
+        <Route path="/about-us" element={<AboutUs />} />
 
-        {/* ✅ Profile with nested routes */}
+        {/* Profile with nested routes */}
         <Route path="/profile" element={<Profile />}>
           <Route index element={<Favourites />} /> {/* default */}
           <Route path="orderHistory" element={<UserOrderHistory />} />
