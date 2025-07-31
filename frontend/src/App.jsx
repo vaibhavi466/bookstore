@@ -1,18 +1,40 @@
+import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import AllBooks from "./pages/AllBooks";
+
 import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
+import AllBooks from "./pages/AllBooks";
+import Cart from "./pages/Cart";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import ViewBookDetails from "./pages/ViewBookDetails";
+import Profile from "./pages/Profile";
+import AboutUs from "./pages/AboutUs";
+
+import Favourites from "./components/Profile/Favourites";
+import UserOrderHistory from "./components/Profile/UserOrderHistory";
+import Settings from "./components/Profile/Settings";
 
 function App() {
   return (
-    <div className="min-h-screen bg-zinc-900 text-white">
+    <div className="bg-zinc-800 min-h-screen text-white">
       <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/all-books" element={<AllBooks />} />
-        <Route path ="view-book-details/:id" />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
+        <Route path="/about-us" element={<AboutUs />} />
+
+        {/* Profile with nested routes */}
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<Favourites />} /> {/* default */}
+          <Route path="orderHistory" element={<UserOrderHistory />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
       </Routes>
 
       <Footer />
