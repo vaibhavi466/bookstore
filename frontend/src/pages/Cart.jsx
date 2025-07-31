@@ -3,10 +3,12 @@ import Loader from "../components/Loader/Loader";
 import axios from "axios";
 import{AiFillDelete} from "react-icons/ai";
 import { useNavigate } from "react-router-dom"
-const navigate = useNavigate();
+
 const Cart=()=>{
+
   const [Cart,setCart]=useState(); //by defalut cart is empty
   const [Total,setTotal]=useState(0);
+  const navigate = useNavigate();
   const headers={
     id:localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,

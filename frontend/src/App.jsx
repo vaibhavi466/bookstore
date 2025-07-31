@@ -33,6 +33,13 @@ function App() {
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
         <Route path="*" element={<div className="text-red-500 p-4"> Route Not Matched</div>} />
 
+
+        
+
+
+
+
+
         {/* ✅ Profile with role-based nested routes */}
         <Route path="/profile" element={<Profile />}>
           <Route index element={role === "admin" ? <AllOrders /> : <Favourites />} />
