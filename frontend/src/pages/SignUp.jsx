@@ -43,16 +43,21 @@ const SignUp = () => {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Register Button */}
         <div className="mt-6 text-center">
           <button className="bg-yellow-100 text-zinc-900 px-6 py-2 rounded font-semibold hover:bg-yellow-200 transition">
             Register
           </button>
         </div>
+
+        {/* Login Redirect */}
+        <p className="text-zinc-400 text-sm text-center mt-4">
+          Already have an account?{' '}
+          <Link to="/login" className="text-yellow-100 hover:underline">Login</Link>
+        </p>
       </div>
     </div>
   );
 };
 
 export default SignUp;
-
