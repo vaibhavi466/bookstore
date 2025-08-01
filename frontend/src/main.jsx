@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-// src/main.jsx
->>>>>>> 524d0b3b50ab42effeeb470293e3f4768291acb0
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
