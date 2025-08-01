@@ -9,41 +9,41 @@ const Profile = () => {
   const [profile, setProfile] = useState(null); // ✅ lowercase to avoid conflict
 
   const headers = {
-    id: localStorage.getItem('id'),
+    //id: localStorage.getItem('id'),
     authorization: `Bearer ${localStorage.getItem('token')}`,
   };
 
   useEffect(() => {
 
     // ye dummy data hai , kaam ho jane k baad delete kr dena :
-    const fetchProfile = async () => {
-    try {
-      const mockData = {
-        avatar: "https://i.pravatar.cc/150?img=12",
-        username: "John Doe",
-        email: "john.doe@example.com",
-      };
+    //const fetchProfile = async () => {
+   // try {
+    //  const mockData = {
+     //   avatar: "https://i.pravatar.cc/150?img=12",
+     //   username: "John Doe",
+     //   email: "john.doe@example.com",
+      //};
       
-      setTimeout(() => {
-        setProfile(mockData);
-      }, 500);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
+    //  setTimeout(() => {
+    //    setProfile(mockData);
+   //   }, 500);
+   // } catch (error) {
+    //  console.error("Error fetching profile:", error);
+    //}
+  //};
 
     // neeche wala sara main real time data fetch krne k liye h , dont mess with it !!!
-    // const fetchProfile = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       'http://localhost:5174/api/v1/get-user-information',
-    //       { headers }
-    //     );
-    //     setProfile(response.data);
-    //   } catch (error) {
-    //     console.error('Error fetching profile:', error);
-    //   }
-    // };
+    const fetchProfile = async () => {
+       try {
+        const response = await axios.get(
+          'http://localhost:1000/api/v1/get-user-information',
+          { headers }
+        );
+        setProfile(response.data);
+      } catch (error) {
+         console.error('Error fetching profile:', error);
+     }
+     };
 
     fetchProfile(); 
   }, []);

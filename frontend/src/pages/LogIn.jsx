@@ -1,49 +1,75 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:1000/api/v1/login",
+        {
+          username,
+          password
+        }
+      );
+      console.log(response.data);
+      const { id, role, token } = response.data;
+
+      // Save to localStorage (or context if using)
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", id);
+      localStorage.setItem("role", role);
+
+      alert("Login successful");
+      navigate("/profile"); // or your dashboard/home route
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Login failed");
+    }
+  };
+
   return (
-    <div className="h-auto bg-zinc-900 px-12 py-8 flex items-center justify-center">
-      <div className="bg-zinc-800 rounded-lg px-8 py-5 w-full md:w-3/6 lg:w-2/6">
-        <p className="text-zinc-200 text-xl text-center">Login</p>
-
-        {/* Email */}
-        <div className="mt-4">
-          <label htmlFor="email" className="text-zinc-400">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-            placeholder="xyz@example.com"
-            required
-          />
-        </div>
-
-        {/* Password */}
-        <div className="mt-4">
-          <label htmlFor="password" className="text-zinc-400">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="mt-6 text-center">
-          <button className="bg-yellow-100 text-zinc-900 px-6 py-2 rounded font-semibold hover:bg-yellow-200 transition">
-            Login
-          </button>
-        </div>
-
-        {/* Signup Redirect */}
-        <p className="text-zinc-400 text-sm text-center mt-4">
-          Don't have an account?{' '}
-          <Link to="/signup" className="text-yellow-100 hover:underline">Sign Up</Link>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <form
+        className="bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
+        onSubmit={handleLogin}
+      >
+        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          className="w-full p-2 mb-4 rounded bg-gray-700"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-2 mb-6 rounded bg-gray-700"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="w-full bg-green-600 hover:bg-green-700 text-white p-2 rounded"
+        >
+          Login
+        </button>
+        <p className="mt-4 text-sm text-center">
+          Don't have an account?{" "}
+          <span
+            className="text-blue-400 cursor-pointer hover:underline"
+            onClick={() => navigate("/signup")}
+          >
+            Signup
+          </span>
         </p>
-      </div>
+      </form>
     </div>
   );
 };
