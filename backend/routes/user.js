@@ -55,53 +55,52 @@ router.post("/sign-up" ,async(req,res)=>{
 })
 
 //sign in ///video 2 timestamp 19:00
-router.post("/sign-in" ,async(req,res)=>{
-    try{
-        const {username,password}=req.body;
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-        const existingUser= await User.findOne({username});
-        if(!existingUser)
-        {
-            res.status(400).json({message:"Invalid Credentials"});
-        }
-        await bcrypt.compare(password,existingUser.password, (err, data)=>{
-             if(data)
-             {
-                const authClaims=[
-                    {name:existingUser.username},
-                    {role:existingUser.role},
-                ]
-                const token=jwt.sign({authClaims},"bookStore123",{expiresIn:"30d",} ) ;  //secret key used fpr secret key //can be kept in .env as well
-                res.status(200).json({
-                    id:existingUser._id,
-                    role:existingUser.role,
-                    token:token,
+    const existingUser = await User.findOne({ username });
+    if (!existingUser) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
 
-                });
-             }
-             else{
-                res.status(400).json({message:"Invalid Credentials"});
-             }
-        });
-    }
-    catch(error){
-        console.error(error);
-        res.status(500).json({message:"Intternal Server Error"});
-    }
-})
+    const isPasswordValid = await bcrypt.compare(password, existingUser.password); // <-- removed callback
 
-//get user information //token , id  use krke get kr skte h sab kux
-router.get("/get-user-information",authenticateToken, async(req,res)=>{    //agr authentication pass ho gya fir next() pr jayega ie try ki user viable hai ya nhi 
-    try{
-        const {id}=req.headers;
-        const data=await User.findById(id).select('-password') ;  //displays everything exceput password
-        return res.status(200).json(data);
+    if (isPasswordValid) {
+      const authClaims = [
+        { name: existingUser.username },
+        { role: existingUser.role },
+      ];
 
+      const token = jwt.sign({ authClaims }, "bookStore123", {
+        expiresIn: "30d",
+      });
+
+      return res.status(200).json({
+        id: existingUser._id,
+        role: existingUser.role,
+        token: token,
+      });
+    } else {
+      return res.status(400).json({ message: "Invalid Credentials" });
     }
-    catch (error){
-        res.status(500).json({message:"internal Server error"});
-    }
-})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
+router.get("/get-user-information", authenticateToken, async (req, res) => {
+  try {
+    const id = req.user.id; // ✅ from JWT
+    const data = await User.findById(id).select('-password');
+    return res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 
 //if user wants to update
 router.put("/update-address",authenticateToken, async(req,res)=>{
