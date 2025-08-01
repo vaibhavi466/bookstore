@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-const UserOrderHistory = () => {
-  return (
-    <div>
-      UserOrderHistory
-    </div>
-  )
-}
-
-export default UserOrderHistory
-=======
 import React from 'react';
 import axios from 'axios';
 
@@ -54,4 +41,3 @@ const UserOrderHistory = () => {
 }
 
 export default UserOrderHistory
->>>>>>> d4e344c35cd5032f6b4b04424973718f13477e9a

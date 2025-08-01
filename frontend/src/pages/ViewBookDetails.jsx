@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 // import axios from "axios";
@@ -233,16 +232,3 @@ const ViewBookDetails = () => {
 };
 
 export default ViewBookDetails;
-=======
-import React from 'react'
-
-const ViewBookDetails = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default ViewBookDetails
->>>>>>> d4e344c35cd5032f6b4b04424973718f13477e9a

@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-const Settings = () => {
-  return (
-    <div>
-      Settings
-    </div>
-  )
-}
-
-export default Settings
-=======
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../common/Loader"; // Make sure this Loader component exists
@@ -110,4 +97,3 @@ const Settings = () => {
 export default Settings;
 
 
->>>>>>> d4e344c35cd5032f6b4b04424973718f13477e9a

@@ -1,13 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-=======
-import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navbar/Navbar";
-
->>>>>>> d4e344c35cd5032f6b4b04424973718f13477e9a
 import Home from "./pages/Home";
 import AllBooks from "./pages/AllBooks";
 import Cart from "./pages/Cart";
@@ -22,10 +16,6 @@ import AllOrders from "./pages/AllOrders";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
 
-import Favourites from "./components/Profile/Favourites";
-import UserOrderHistory from "./components/Profile/UserOrderHistory";
-import Settings from "./components/Profile/Settings";
-
 function App() {
   const role = useSelector((state) => state.auth.role);
 
@@ -39,7 +29,6 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
-<<<<<<< HEAD
         <Route path="/updateBook/:id" element={<UpdateBook />} />
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
         <Route path="*" element={<div className="text-red-500 p-4"> Route Not Matched</div>} />
@@ -59,15 +48,6 @@ function App() {
           ) : (
             <Route path="orderHistory" element={<UserOrderHistory />} />
           )}
-=======
-        <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
-        <Route path="/about-us" element={<AboutUs />} />
-
-        {/* Profile with nested routes */}
-        <Route path="/profile" element={<Profile />}>
-          <Route index element={<Favourites />} /> {/* default */}
-          <Route path="orderHistory" element={<UserOrderHistory />} />
->>>>>>> d4e344c35cd5032f6b4b04424973718f13477e9a
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
