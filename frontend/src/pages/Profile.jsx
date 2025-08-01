@@ -56,7 +56,7 @@ const Profile = () => {
         </div> 
       ) : (
         <>
-          <div className="sm:w-full md:w-1/6">
+          <div className="w-full md:w-1/6 h-auto lg:h-screen">
             <Sidebar data={profile} />
           </div>
           <div className="sm:w-full md:w-5/6">
@@ -69,3 +69,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

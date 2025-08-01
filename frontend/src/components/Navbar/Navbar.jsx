@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth?.isLoggedIn ?? false);
-  const role = useSelector((state) => state.auth.role);
+  const role = useSelector((state) => state.auth?.role ?? '');
 
-  // ✅ Define common and role-based links
+  // Common and Role-based links
   const commonLinks = [
     { title: 'Home', link: '/' },
     { title: 'All Books', link: '/all-books' },
@@ -25,38 +25,32 @@ const Navbar = () => {
   ];
 
   let filteredLinks = [...commonLinks];
-
   if (isLoggedIn && role === 'user') {
-    filteredLinks = [...commonLinks, ...userLinks];
+    filteredLinks = [...filteredLinks, ...userLinks];
   } else if (isLoggedIn && role === 'admin') {
-    filteredLinks = [...commonLinks, ...adminLinks];
+    filteredLinks = [...filteredLinks, ...adminLinks];
   }
 
   return (
     <div className="bg-zinc-700 text-white px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Logo + Title */}
         <div className="flex items-center gap-4">
           <img className="h-12 sm:h-14" src={logo} alt="logo" />
           <h1 className="text-xl sm:text-2xl font-semibold">BookHeaven</h1>
         </div>
 
-        {/* Hamburger Icon for Small Screens */}
         <div className="lg:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-2xl">
             {menuOpen ? '✖' : '☰'}
           </button>
         </div>
 
-        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           {filteredLinks.map((item, i) => (
             <Link key={i} to={item.link} className="hover:text-blue-400">
               {item.title}
             </Link>
           ))}
-
-          {/* Auth Buttons */}
           {!isLoggedIn && (
             <div className="flex gap-3">
               <Link
@@ -76,7 +70,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="mt-4 lg:hidden flex flex-col gap-4">
           {filteredLinks.map((item, i) => (
@@ -90,7 +83,6 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* Mobile Auth Buttons */}
           {!isLoggedIn && (
             <div className="flex flex-col gap-3 pt-2">
               <Link
