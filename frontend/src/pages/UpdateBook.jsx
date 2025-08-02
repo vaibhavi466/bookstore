@@ -65,6 +65,8 @@ const UpdateBook = () => {
     try {
       await axios.put(`/api/books/${id}`, formData);
       setShowDialog(true);
+      
+
     } catch (error) {
       console.error("Failed to update book:", error);
       setError("❌ Failed to update book. Please try again.");

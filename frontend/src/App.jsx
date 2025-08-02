@@ -15,6 +15,11 @@ import Settings from "./components/Profile/Settings";
 import AllOrders from "./pages/AllOrders";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c68fe26bf7cd0a7d0745a5d7c0d2486c40c62b41
 
 function App() {
   const role = useSelector((state) => state.auth.role);

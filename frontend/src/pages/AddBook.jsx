@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +30,18 @@ const AddBook = () => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
+
+  console.log("Token:", token);
+  console.log("User ID:", id);
+  console.log("Form Data:", formData);
+  console.log("API URL:", `${import.meta.env.VITE_BASE_URL}/add-book`);
+
+  if (!token || !id) {
+    toast.error("You're not authorized. Please login.");
+    return;
+  }
 
   if (
     !formData.title ||
@@ -42,28 +56,41 @@ const AddBook = () => {
   }
 
   setError("");
-  setIsLoading(true); // start loading
+  setIsLoading(true);
 
   try {
-      //  New: send POST request to backend API
-      await axios.post("/api/books", formData); // change URL if your backend route differs
+    const res = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/add-book`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          id: id,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-      setShowDialog(true); //  Show celebration
+    if (res?.data?.message === "Book created successfully") {
+      toast.success("Book added successfully");
+      setShowDialog(true);
       setFormData({
+        url: "",
         title: "",
         author: "",
+        price: "",
         desc: "",
         language: "English",
-        price: "",
-        url: "",
       });
-    } catch (error) {
-      console.error("Failed to add book:", error);
-      setError(" Failed to add book. Please try again.");
-    } finally {
-      setIsLoading(false); // stop loading
     }
-  };
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Failed to add book"
+    );
+  } finally {
+    setIsLoading(false);
+  }
+};
 
 
   return (
