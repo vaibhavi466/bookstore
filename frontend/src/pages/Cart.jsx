@@ -33,6 +33,7 @@ const Cart=()=>{
       {headers}
     );
     alert(response.data.message);
+    setCart((prev) => prev.filter((item) => item._id !== bookid)); // ✅ update UI
   };
 
   useEffect(()=>{
@@ -42,7 +43,7 @@ const Cart=()=>{
         total += items.price;
       });
       setTotal(total);
-      total=0;
+      //total=0;
     }
   },[Cart]);
 
@@ -137,7 +138,7 @@ const Cart=()=>{
             <h2>{Cart.length} books</h2> <h2> Rs {Total}</h2>
           </div>
           <div className="w-[100%] mt-3">
-            <button className="bg-zinc-100 rounded px-4 py-2 flex justify-center w-full font-semibold hover:bg-zinc-"
+            <button className="bg-zinc-100 rounded px-4 py-2 flex justify-center w-full font-semibold hover:bg-zinc-200"
             onClick={PlaceOrder}
             >
               Place your order

@@ -24,6 +24,8 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", id);
       localStorage.setItem("role", role);
+      localStorage.setItem("isLoggedIn", true);
+      
 
       alert("Login successful");
       navigate("/profile"); // or your dashboard/home route

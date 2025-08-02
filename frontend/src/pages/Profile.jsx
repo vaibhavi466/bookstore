@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Loader from '../components/common/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null); // ✅ lowercase to avoid conflict
