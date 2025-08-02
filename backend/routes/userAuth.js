@@ -1,7 +1,7 @@
 const jwt=require("jsonwebtoken");
 
 const authenticateToken=(req,res,next)=>{
-    const authHeader=req.headers["authorisation"];
+    const authHeader=req.headers["authorization"];
     const token =authHeader && authHeader.split(" ")[1];  //Bearer token 
 
     if(token == null){
@@ -10,7 +10,7 @@ const authenticateToken=(req,res,next)=>{
 
     jwt.verify(token,"bookStore123", (err,user)=>{
         if(err){
-            return res.status(403).json(err);  //token expired case or other error so we need to sign in again
+            return res.status(403).json({ message: "Invalid or expired token" });  //token expired case or other error so we need to sign in again
         }
         req.user=user;
         next();

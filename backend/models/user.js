@@ -21,7 +21,7 @@ const user =new mongoose.Schema({
     },
     avatar:{
         type:String,
-        dafault:"http://cdn-icons-png.flaticon.com/128/1377/3177440.png",
+        default:"http://cdn-icons-png.flaticon.com/128/1377/3177440.png",
     },
     role:{
         type:String,

@@ -18,6 +18,15 @@
 // app.get("/", (req,res)=>{
 //     res.send("Hello from server");
 // });
+
+// ye chatgpt add karwaya h , db me book h ki ni ye check krne k liye bs
+const bookRoutes = require("./routes/book");
+app.use("/api/v1", bookRoutes);
+
+
+
+
+
  app.use("/api/v1", User );
  app.use("/api/v1", Books );
  app.use("/api/v1", Favourite );
@@ -26,6 +35,10 @@
 
  console.log("✅ App started");
  //creating port
+ app.use((err, req, res, next) => {
+  console.error("🔥 GLOBAL ERROR:", err.stack);
+  res.status(500).json({ message: "Something went wrong", error: err.message });
+});
  app.listen(process.env.PORT,()=>{
     console.log(`Server Started at port ${process.env.PORT} `);
  }) ;
