@@ -12,12 +12,15 @@ const authSlice = createSlice({
   reducers: {
     login(state) {
       state.isLoggedIn = true;
+      localStorage.setItem("isLoggedIn", "true"); 
     },
     logout(state) {
       state.isLoggedIn = false;
+      localStorage.setItem("isLoggedIn", "false");
     },
     changeRole(state, action) {
       state.role = action.payload;
+      localStorage.setItem("role", action.payload);
     },
   },
 });
