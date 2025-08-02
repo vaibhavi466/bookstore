@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth";
 import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +25,27 @@ const SignUp = () => {
         }
       );
       console.log(response.data);
-      alert("Signup successful");
-      navigate("/login");
+      // ✅ Automatically log in user after successful signup
+      const loginResponse = await axios.post(
+        "http://localhost:1000/api/v1/login",
+        {
+          username,
+          password,
+        }
+      );
+
+    const { id, role, token } = loginResponse.data;
+    // ✅ Store session info
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", id);
+    localStorage.setItem("role", role);
+    localStorage.setItem('isLoggedIn', true); // 🟢 crucial!
+
+    dispatch(authActions.login()); // ✅ set isLoggedIn to true
+    dispatch(authActions.changeRole(role)); // ✅ set role in redux
+
+    alert("Signup successful");
+    navigate("/profile"); // Redirect to profile page after signup
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Signup failed");

@@ -110,6 +110,16 @@ router.get("/get-book-by-id/:id", async(req,res)=>{
     }
 })
 
+// ye chapgpt add krwaya h
+// temp route to check books in DB
+router.get("/check-books", async (req, res) => {
+  const books = await Book.find();
+  res.json({ count: books.length, books });
+});
+
+
+
+
 
 
 module.exports=router;

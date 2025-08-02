@@ -28,7 +28,9 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", id);
       localStorage.setItem("role", role);
+      localStorage.setItem('isLoggedIn', true); // 🟢 crucial!
 
+      dispatch(authActions.login()); 
       dispatch(authActions.changeRole(role));
 
       alert("Login successful");
