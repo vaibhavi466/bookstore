@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/auth";
+
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,6 +28,8 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", id);
       localStorage.setItem("role", role);
+
+      dispatch(authActions.changeRole(role));
 
       alert("Login successful");
       navigate("/profile"); // or your dashboard/home route
