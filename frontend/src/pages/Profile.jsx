@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Profile/Sidebar';
 import { Outlet } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Loader from '../components/common/Loader';
 import { useNavigate } from 'react-router-dom';
@@ -57,11 +57,7 @@ const Profile = () => {
         </div> 
       ) : (
         <>
-<<<<<<< HEAD
           <div className="sm:w-full md:w-1/6">
-=======
-          <div className="w-full md:w-1/6 h-auto lg:h-screen">
->>>>>>> c68fe26bf7cd0a7d0745a5d7c0d2486c40c62b41
             <Sidebar data={profile} />
           </div>
           <div className="sm:w-full md:w-5/6">
@@ -74,8 +70,3 @@ const Profile = () => {
 };
 
 export default Profile;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> c68fe26bf7cd0a7d0745a5d7c0d2486c40c62b41
