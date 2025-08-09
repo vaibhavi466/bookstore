@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> c68fe26bf7cd0a7d0745a5d7c0d2486c40c62b41
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/common/Loader";
@@ -12,7 +8,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import {MdOutlineDelete} from "react-icons/md";
 
-const ViewDataDetails = () => {
+const ViewBookDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [Data, setData] = useState();
@@ -141,8 +137,4 @@ const ViewDataDetails = () => {
 
 };
 
-<<<<<<< HEAD
 export default ViewBookDetails;
-=======
-export default ViewDataDetails;
->>>>>>> c68fe26bf7cd0a7d0745a5d7c0d2486c40c62b41

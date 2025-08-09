@@ -33,20 +33,19 @@ router.put("/delete-from-cart/:bookid", authenticateToken,async(req,res)=>{  //b
 })
 
 //cart of a particular user
-router.get("/get-user-cart",authenticateToken,async(req,res)=>{
-    try{
-            const{id}=req.headers;
-            const userData=await User.findById(id).populate("cart");
-            const cart=userData.cart.reverse();
 
-            return res.json({
-                status:"Success",
-                data:cart,
-            });
-        }
-        catch (error){
-            res.status(500).json({message:"An error occured"});
-        }
-})
+router.get("/get-user-cart", authenticateToken, async (req, res) => {
+    try {
+        //const{id}=req.headers;  //dont request for headers 
+        const id = req.user.id; // from decoded token
+        const userData = await User.findById(id).populate("cart");
+        const cart = userData.cart.reverse();
+
+        res.json({ status: "Success", data: cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occured" });
+    }
+});
 
 module.exports=router;
