@@ -5,8 +5,7 @@ const User =require ("../models/user");
 const jwt=require ("jsonwebtoken"); //npm i jsonwebtoken
 const Book =require ("../models/book");
 const {authenticateToken}=require("./userAuth");
-const book = require("../models/book");
-
+const { body, validationResult } = require("express-validator"); // chatgpt ne add karwaya hai , book add krne k liye
 //add books --admit
 router.post("/add-book",authenticateToken,async(req, res)=>{
     try{
