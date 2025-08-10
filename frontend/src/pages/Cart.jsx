@@ -99,11 +99,13 @@ const Cart = () => {
             <h1 className='text-5xl lg:text-6xl font-semibold text-zinc-400'>
               Empty Cart
             </h1>
+
             <img
               src="/empty-cart.png"
               alt="empty cart"
               className='lg:h-[50vh]'
             />
+
           </div>
         </div>
       )}
@@ -112,6 +114,7 @@ const Cart = () => {
           <h1 className="text-4xl font-bold text-zinc-300 text-center mb-8">
             Your Cart 
           </h1>
+
           {Cart.map((items,i) => (
             <div key={i} className="bg-zinc-800 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-4 shadow-md"
             >
@@ -128,6 +131,8 @@ const Cart = () => {
                   {items.desc?.slice(0, 65)}...
                 </p>
                 <p className="text-zinc-100 mt-2 font-semibold">₹ {items.price}</p>
+          </div>
+          </div>
           ))}
 
 
