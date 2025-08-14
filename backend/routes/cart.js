@@ -36,7 +36,17 @@ router.put("/delete-from-cart/:bookid", authenticateToken,async(req,res)=>{  //b
 router.get("/get-user-cart",authenticateToken,async(req,res)=>{
     try{
             const{id}=req.headers;
+            console.log("User ID from headers:", id);  // Debug log
+            if (!id) {
+                return res.status(400).json({ message: "User ID is missing in headers" });
+            }
             const userData=await User.findById(id).populate("cart");
+            if (!userData) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            if(!userData.cart){
+                return res.status(404).json({ message: "Cart is empty" });
+            }
             const cart=userData.cart.reverse();
 
             return res.json({
