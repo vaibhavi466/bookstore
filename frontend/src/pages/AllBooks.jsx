@@ -113,7 +113,7 @@ const AllBooks = () => {
         const token = localStorage.getItem("token");
         console.log("📦 Token from localStorage:", token);
 
-        const response = await axios.get("http://localhost:5000/api/books/get-all-books", {
+        const response = await axios.get("http://localhost:1000/api/v1/books", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

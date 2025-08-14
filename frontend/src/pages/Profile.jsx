@@ -37,7 +37,9 @@ const Profile = () => {
        try {
         const response = await axios.get(
           'http://localhost:1000/api/v1/get-user-information',
-          { headers }
+          {
+             headers 
+          }
         );
         setProfile(response.data);
       } catch (error) {

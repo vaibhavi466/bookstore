@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // APi requests
+
 import Loader from '../components/common/Loader';
 
 const Cart = () => {
-  const backendReady = false; // 🔁 Set to true when backend is ready
+  const backendReady = true; // 🔁 Set to true when backend is ready
   const [cart, setCart] = useState(null);
   const [total, setTotal] = useState(0);
 
   const headers = {
-    id: localStorage.getItem("id"),
+    id: localStorage.getItem("userId"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
@@ -26,9 +28,10 @@ const Cart = () => {
 
       try {
         const res = await axios.get('http://localhost:1000/api/v1/get-user-cart', { headers });
-        setCart(res.data.items || []);
-        setTotal(res.data.items.reduce((sum, item) => sum + (item.price || 0), 0));
-      } catch (error) {
+        const cartItems = res.data.data || [];
+        setCart(cartItems);
+        setTotal(cartItems.reduce((sum, item) => sum + (item.price || 0), 0));
+        } catch (error) {
         console.error('Error fetching cart:', error);
         setCart([]);
       }
@@ -46,7 +49,9 @@ const Cart = () => {
     }
 
     try {
-      await axios.delete(`/api/cart/${itemId}`);
+      await axios.put(`http://localhost:1000/api/v1/delete-from-cart/${itemId}`, {}, { headers });
+      // Update frontend cart after deletion
+
       const updatedCart = cart.filter((item) => item.id !== itemId);
       setCart(updatedCart);
       setTotal(updatedCart.reduce((sum, item) => sum + item.price, 0));
@@ -64,7 +69,7 @@ const Cart = () => {
     }
 
     try {
-      await axios.post('/api/cart/checkout');
+      await axios.post('http://localhost:1000/api/v1/checkout' , null, { headers });
       setCart([]);
       setTotal(0);
       alert('Purchase successful!');
