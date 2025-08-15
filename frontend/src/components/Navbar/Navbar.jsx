@@ -11,24 +11,29 @@ const Navbar = () => {
   // Common and Role-based links
   const commonLinks = [
     { title: 'Home', link: '/' },
-    { title: 'All Books', link: '/all-books' },
-    { title: 'About Us', link: '/about-us' },
+    { title: 'All Books', link: 'all-book' },
+    // { title: 'About Us', link: '/about-us' },
   ];
 
   const userLinks = [
     { title: 'Cart', link: '/cart' },
     { title: 'Profile', link: '/profile' },
+    { title: 'About Us', link: '/about-us' },
   ];
 
   const adminLinks = [
+    { title: 'Home', link: '/' }, 
+    { title: 'Add Book', link: '/profile/add-book' },
+    { title: 'All Books', link: '/all-books' }, 
     { title: 'Admin Profile', link: '/profile' },
+    
   ];
 
   let filteredLinks = [...commonLinks];
   if (isLoggedIn && role === 'user') {
     filteredLinks = [...filteredLinks, ...userLinks];
   } else if (isLoggedIn && role === 'admin') {
-    filteredLinks = [...filteredLinks, ...adminLinks];
+    filteredLinks = [...adminLinks];
   }
 
   return (

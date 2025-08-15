@@ -1,8 +1,11 @@
 import React from 'react';
 
-const BookCard = ({ data }) => {
+const BookCard = ({ data , onClick}) => {
   return (
-    <div className="bg-zinc-800 rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-xl transition-transform hover:scale-105 duration-300">
+    
+    <div
+    onClick={onClick} // ✅ clickable card 
+    className="bg-zinc-800 rounded-lg p-4 flex flex-col items-center shadow-md hover:shadow-xl transition-transform hover:scale-105 duration-300">
       
       {/* Book Image */}
       <div className="bg-zinc-900 rounded-md flex items-center justify-center h-[25vh] w-full overflow-hidden">

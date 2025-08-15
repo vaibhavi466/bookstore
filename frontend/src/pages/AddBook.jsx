@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
+const BASE = (import.meta.env.VITE_BASE_URL || 'http://localhost:1000/api/v1').replace(/\/$/, '');
+console.log("VITE_BASE_URL:", BASE);
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -38,10 +41,16 @@ const AddBook = () => {
   console.log("Form Data:", formData);
   console.log("API URL:", `${import.meta.env.VITE_BASE_URL}/add-book`);
 
-  if (!token || !id) {
-    toast.error("You're not authorized. Please login.");
-    return;
+  // if (!token || !id) {
+  //   toast.error("You're not authorized. Please login.");
+  //   return;
+  // }
+
+  if (!token) {
+  toast.error("You're not authorized. Please login.");
+  return;
   }
+
 
   if (
     !formData.title ||
@@ -60,19 +69,20 @@ const AddBook = () => {
 
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/add-book`,
+      `${BASE}/add-book`,
       formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          id: id,
+          // id: id,
           "Content-Type": "application/json",
         },
       }
     );
 
-    if (res?.data?.message === "Book created successfully") {
-      toast.success("Book added successfully");
+    if (res?.data?.message.trim() === "Book created successfully") {
+      // toast.success("Book added successfully"); pushps ki line
+      toast.success(res?.data?.message || "Book added successfully"); // chatgpt ki line
       setShowDialog(true);
       setFormData({
         url: "",

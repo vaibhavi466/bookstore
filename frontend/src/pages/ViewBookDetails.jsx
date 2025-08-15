@@ -139,3 +139,26 @@ const ViewDataDetails = () => {
 };
 
 export default ViewDataDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
