@@ -15,10 +15,14 @@ const Cart=()=>{
   };
   useEffect(()=>{
     const fetch =async()=>{
-      const res=await axios.get(
-        "http://localhost:1000/api/v1/get-user-cart",
-        {headers}
-      );
+      // const res=await axios.get(
+      //   "http://localhost:1000/api/v1/get-user-cart",
+      //   {headers}
+      // );
+
+      const res = await axios.get("http://localhost:1000/api/v1/get-user-cart", { headers });
+setCart(res.data.data);
+
       setCart(res.data.data);
     };
     fetch();
@@ -28,10 +32,10 @@ const Cart=()=>{
 
   const deleteItem =async(bookid)=>{
     const response =await axios.put(
-      `http://localhost:1000/api/v1/get-user-cart/${bookid}` ,
-      {},
-      {headers}
-    );
+  `http://localhost:1000/api/v1/delete-from-cart/${bookid}`, // ✅ correct endpoint
+  {},
+  { headers }
+);
     alert(response.data.message);
     setCart((prev) => prev.filter((item) => item._id !== bookid)); // ✅ update UI
   };

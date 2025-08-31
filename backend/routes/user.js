@@ -9,7 +9,7 @@ const {authenticateToken}=require("./userAuth");
 //sign up
 router.post("/sign-up" ,async(req,res)=>{
     try{
-        const {username,email,password,address}=req.body;
+        const {username,email,password,address,role}=req.body;
 
         //check username lengthis more than 4
         if(username.length<4){
@@ -53,6 +53,7 @@ router.post("/sign-up" ,async(req,res)=>{
             email:email,
             password:hassPass,
             address:address,
+            role: req.body.role || "user",  //added for rol from chatgpt
         });
         await newUser.save();
         return res.status(200).json({message:"Signup Successfull"});

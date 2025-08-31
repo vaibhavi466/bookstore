@@ -36,7 +36,6 @@ const Sidebar = ({ data }) => {
               alt="Avatar"
               className="h-[12vh] w-[12vh] rounded-full object-cover border-4 border-zinc-600"
             />
-<<<<<<< HEAD
             <p className="mt-4 text-xl font-semibold text-center">
               {data.username}
             </p>

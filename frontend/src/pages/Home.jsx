@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className='bg-zinc-900text-white px-10 py-8'>
       <Hero />
-      <RecentlyAdded />
+      {/* <RecentlyAdded /> yahan RecentlyAdded ka duplicate tha so hashteagged it */}
     </div>
   )
 }
