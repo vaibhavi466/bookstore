@@ -208,8 +208,8 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const headers = {
-    id: localStorage.getItem("id"),
-    authorization: `Bearer ${localStorage.getItem("token")}`,
+    id: localStorage.getItem('id') || '',
+    authorization: `Bearer ${localStorage.getItem('token') || ''}`,
   };
 
   // Fetch cart data
@@ -223,9 +223,11 @@ const Cart = () => {
       } catch (error) {
         console.error("Error fetching cart:", error);
         setCart([]);
+        setTotal(0);
       }
     };
     fetchCart();
+     
   }, []);
 
   // Delete item from cart
@@ -336,7 +338,7 @@ const Cart = () => {
       )}
     </div>
   );
-};
+}
 
 export default Cart;
 
