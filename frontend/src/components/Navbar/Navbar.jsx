@@ -11,7 +11,7 @@ const Navbar = () => {
   // Common and Role-based links
   const commonLinks = [
     { title: 'Home', link: '/' },
-    { title: 'All Books', link: 'all-book' },
+    { title: 'All Books', link: '/all-books' },
     // { title: 'About Us', link: '/about-us' },
   ];
 
