@@ -545,7 +545,7 @@ const Cart = () => {
     return () => {
       mounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [auth?.token, auth?.user]); // re-run if auth changes
 
   // Delete item from cart — optimistic UI + multiple attempts
