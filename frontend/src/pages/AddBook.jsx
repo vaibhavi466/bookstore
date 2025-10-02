@@ -67,17 +67,61 @@ const AddBook = () => {
   setError("");
   setIsLoading(true);
 
+  // 1. CREATE A COPY OF formData AND CLEAN THE URL
+  let dataToSend = { ...formData };
+  
+  // Use a temporary element to decode the URL string, replacing '&amp;' with '&'
+  // This is a reliable way to decode HTML entities in the browser.
+  if (dataToSend.url.includes('&amp;')) {
+      const doc = new DOMParser().parseFromString(dataToSend.url, "text/html");
+      dataToSend.url = doc.documentElement.textContent;
+  }
+  // Log the cleaned URL before sending
+  console.log("Cleaned URL before send:", dataToSend.url);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   try {
     const res = await axios.post(
       `${BASE}/add-book`,
-      formData,
+      // formData,
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //     // id: id,
+      //     "Content-Type": "application/json",
+      //   },
+      // }
+      // upar wala original h , neeche wala bs isliye h kyuke book image render ni ho rhi h
+      dataToSend, // <-- USE THE CLEANED DATA
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          // id: id,
+
           "Content-Type": "application/json",
         },
       }
+
+
+
+
+
+
+      
     );
 
     if (res?.data?.message.trim() === "Book created successfully") {
