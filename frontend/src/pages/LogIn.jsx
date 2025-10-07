@@ -26,7 +26,7 @@ const Login = () => {
 
       // Save to localStorage (or context if using)
       localStorage.setItem("token", token);
-      localStorage.setItem("userId", id);
+      localStorage.setItem("id", id);
       localStorage.setItem("role", role);
       localStorage.setItem('isLoggedIn', true); // 🟢 crucial!
 

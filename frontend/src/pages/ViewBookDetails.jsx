@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/common/Loader";
@@ -9,7 +8,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import {MdOutlineDelete} from "react-icons/md";
 
-const ViewDataDetails = () => {
+const ViewBookDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [Data, setData] = useState();
@@ -37,7 +36,7 @@ const ViewDataDetails = () => {
           {},
           { headers }
         );
-        alert(response);
+        alert(response.data.message);
       };
       const handleCart = async () => {
         const response = await axios.put(
@@ -138,4 +137,4 @@ const ViewDataDetails = () => {
 
 };
 
-export default ViewDataDetails;
+export default ViewBookDetails;

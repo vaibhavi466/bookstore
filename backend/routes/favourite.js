@@ -36,8 +36,8 @@ router.delete("/remove-book-from-favourite", authenticateToken,async(req,res)=>{
 //add book to favourites
 router.get("/get-favourite-books", authenticateToken,async(req,res)=>{
    try{
-            const{id}=req.headers;
-            const userData=await User.findById(id).populate("favourites");
+            const { id } = req.headers;
+            const userData = await User.findById(id).populate("favourites");
             const FavouriteBooks=userData.favourites
             
             return res.json({

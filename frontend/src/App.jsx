@@ -16,8 +16,6 @@ import AllOrders from "./pages/AllOrders";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
 
-
-
 function App() {
   const role = useSelector((state) => state.auth.role);
 
@@ -33,7 +31,14 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/updateBook/:id" element={<UpdateBook />} />
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
-        <Route path="*" element={<div className="text-red-500 p-4">❌ Route Not Matched</div>} />
+        <Route path="*" element={<div className="text-red-500 p-4"> Route Not Matched</div>} />
+
+
+        
+
+
+
+
 
         {/* ✅ Profile with role-based nested routes */}
         <Route path="/profile" element={<Profile />}>
